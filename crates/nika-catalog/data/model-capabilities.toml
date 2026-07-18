@@ -369,11 +369,17 @@ routing_complete = true
 # K3 is a THINKING model (trace-proven 2026-07-17: 61 reasoning tokens spent
 # on a 64-token budget, diagnosed live). reasoning-effort is the ADR-105
 # mapping. Vision stays absent until the base64 proof runs (test-gated).
+# Vision PROVEN 2026-07-19 (base64 data-URL per the ADR-105 caveat, never a
+# public URL): a 200x200 synthetic red/blue-halves probe answered exactly
+# left=red right=blue. Degenerate-case finding kept honest: a 3x1-pixel
+# image reads as black (the encoder resize destroys it), so tiny images
+# are not a fair oracle. Same run re-proved the thinking floor (628
+# reasoning tokens on the first probe).
 [[rules]]
 name  = "moonshot-kimi-k3"
 scope = { providers = ["moonshot"] }
 match = { kind = "contains_any", patterns = ["k3"] }
-caps  = { input_modalities = ["text"], output_modalities = ["text"], supported_parameters = ["parallel-tool-calls", "reasoning-effort"], json_mode = "schema" }
+caps  = { input_modalities = ["text", "image"], output_modalities = ["text"], supported_parameters = ["parallel-tool-calls", "reasoning-effort"], json_mode = "schema" }
 
 [[rules]]
 name  = "moonshot-kimi"
