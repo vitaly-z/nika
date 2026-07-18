@@ -366,6 +366,15 @@ routing_complete = true
 # [29] Moonshot Kimi K2 — text base models. -vision-preview suffix gets
 #      vision but those model IDs are not in our catalog yet (deferred).
 #      OpenAI-compat: json_schema YES, stop YES. Tokenizer unknown.
+# K3 is a THINKING model (trace-proven 2026-07-17: 61 reasoning tokens spent
+# on a 64-token budget, diagnosed live). reasoning-effort is the ADR-105
+# mapping. Vision stays absent until the base64 proof runs (test-gated).
+[[rules]]
+name  = "moonshot-kimi-k3"
+scope = { providers = ["moonshot"] }
+match = { kind = "contains_any", patterns = ["k3"] }
+caps  = { input_modalities = ["text"], output_modalities = ["text"], supported_parameters = ["parallel-tool-calls", "reasoning-effort"], json_mode = "schema" }
+
 [[rules]]
 name  = "moonshot-kimi"
 scope = { providers = ["moonshot"] }
